@@ -17,13 +17,9 @@ with open('recipe.txt', encoding="UTF-8") as file:
 # pprint(cook_book)
 
 def get_shop_list_by_dishes(dishes, person_count):
-    list_1 = []
-    list_2 = []
-    list_3 = []
+    list_1,list_2,list_3 = [],[],[]
     for i in cook_book.keys():
-        # print(i)
         for j in dishes:
-            # print(j)
             if i == j:
                 list_1 += cook_book[i]
     for id in list_1:
@@ -33,11 +29,20 @@ def get_shop_list_by_dishes(dishes, person_count):
     for id in list_1:
         list_3.append({"measure": id["measure"], "quantity": int(id["quantity"])*person_count})
     
-    for id in zip(list_2,list_3):
-        print(id)
-    #zip,затирается всё если dict , 2 словаря (1 - все уникальные , 2 - всё ) ,  совпадали значения ключей , то складывал по values ... 
-    # print(list_2)
-    # print(list_3)
-            
+    zipped = list(zip(list_2,list_3))
+    basic_dict = {}
+    future_dict = {}
+    for i,j in zipped:
+        if i not in basic_dict.keys():
+            basic_dict[i] = j
+        else:
+            future_dict[i] = j
+    for a,b in basic_dict.items():
+        for c,d in basic_dict.items():
+            if a == c:
+                b["quantity"]+=d["quantity"]
+    pprint(basic_dict)
+
+
 
 get_shop_list_by_dishes(["Омлет","Жаренная картошка","Запеченный картофель"],2)
