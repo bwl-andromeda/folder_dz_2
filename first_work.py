@@ -14,10 +14,10 @@ with open('recipe.txt', encoding="UTF-8") as file:
         cook_book[dish_names] = ingridients_1
         file.readline()
 
-# pprint(cook_book)
+# pprint(cook_book,width=100)
 
 def get_shop_list_by_dishes(dishes, person_count):
-    list_1,list_2,list_3 = [],[],[]
+    list_1,list_2,list_3 = [],[],[] 
     for i in cook_book.keys():
         for j in dishes:
             if i == j:
@@ -28,7 +28,7 @@ def get_shop_list_by_dishes(dishes, person_count):
                 list_2.append(value)
     for id in list_1:
         list_3.append({"measure": id["measure"], "quantity": int(id["quantity"])*person_count})
-    
+        
     zipped = list(zip(list_2,list_3))
     basic_dict = {}
     future_dict = {}
@@ -38,7 +38,7 @@ def get_shop_list_by_dishes(dishes, person_count):
         else:
             future_dict[i] = j
     for a,b in basic_dict.items():
-        for c,d in basic_dict.items():
+        for c,d in future_dict.items():
             if a == c:
                 b["quantity"]+=d["quantity"]
     pprint(basic_dict)
